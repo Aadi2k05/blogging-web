@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Blog Hub - Smart Blogging Platform</title>
+    <style>
+        /* Your existing CSS goes here. Copy-paste the entire style block from your original HTML. */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .section {
+            display: none;
+            padding: 3rem;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .ai-generator {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .blog-card-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .blog-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .comments-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .comment {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 0.25rem;
+        }
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-controls {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .admin-controls h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .email-signup {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .email-signup h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .email-form input {
+            flex: 1;
+        }
+
+        .status-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .ai-suggestions {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        .ai-suggestions h4 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .suggestion-item {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .suggestion-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">AI Blog Hub</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection(event, 'home')" class="active">Home</a></li>
+                <li><a href="#" onclick="showSection(event, 'create')">Create Post</a></li>
+                <li><a href="#" onclick="showSection(event, 'admin')">Admin</a></li>
+                <li><a href="#" onclick="showSection(event, 'newsletter')">Newsletter</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>AI-Powered Blogging</h1>
+            <p>Create, publish, and manage your blog with intelligent AI assistance</p>
+            <a href="#" onclick="showSection(event, 'create')" class="btn">Start Creating</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="main-content">
+            <section id="home" class="section active">
+                <h2>Latest Blog Posts</h2>
+                <div class="blog-posts" id="blogPosts">
+                    <p style="text-align: center; color: #666; padding: 2rem;">Loading posts...</p>
+                </div>
+            </section>
+
+            <section id="create" class="section">
+                <h2>Create New Blog Post</h2>
+                
+                <div class="ai-generator">
+                    <h3>🤖 AI Content Assistant</h3>
+                    <div class="form-group">
+                        <label for="aiPrompt">Enter a topic or idea:</label>
+                        <input type="text" id="aiPrompt" placeholder="e.g., 'Benefits of AI in healthcare'">
+                        <button class="btn" onclick="generateAIContent()" style="margin-top: 0.5rem;">Generate AI Suggestions</button>
+                        <div id="aiLoading" class="loading" style="display: none; margin-left: 10px;"></div>
+                    </div>
+                    
+                    <div id="aiSuggestions" class="ai-suggestions" style="display: none;">
+                        <h4>AI Generated Suggestions:</h4>
+                        <div id="titleSuggestions"></div>
+                        <div id="subtitleSuggestions"></div>
+                        <div id="descriptionSuggestions"></div>
+                    </div>
+                </div>
+
+                <form id="postForm" onsubmit="createPost(event)">
+                    <div class="form-group">
+                        <label for="postTitle">Title:</label>
+                        <input type="text" id="postTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postSubtitle">Subtitle:</label>
+                        <input type="text" id="postSubtitle">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postContent">Content:</label>
+                        <textarea id="postContent" required placeholder="Write your blog post content here..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postCategory">Category:</label>
+                        <select id="postCategory">
+                            <option value="technology">Technology</option>
+                            <option value="business">Business</option>
+                            <option value="lifestyle">Lifestyle</option>
+                            <option value="education">Education</option>
+                            <option value="health">Health</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="authorName">Author Name:</label>
+                        <input type="text" id="authorName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="authorEmail">Author Email:</label>
+                        <input type="email" id="authorEmail" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Publish Post</button>
+                </form>
+                
+                <div id="createStatus"></div>
+            </section>
+
+            <section id="admin" class="section">
+                <h2>Admin Dashboard</h2>
+                
+                <div class="admin-controls">
+                    <h3>Admin Controls</h3>
+                    <button class="btn" onclick="showAllPosts()" style="margin-right: 1rem;">View All Posts</button>
+                    <button class="btn" onclick="showSubscribers()" style="margin-right: 1rem;">View Subscribers</button>
+                    <button class="btn" onclick="moderateComments()">Moderate Comments</button>
+                </div>
+                
+                <div id="adminContent">
+                    <h3>Blog Statistics</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                        <div style="background: #e3f2fd; padding: 1.5rem; border-radius: 10px; text-align: center;">
+                            <h4>Total Posts</h4>
+                            <p style="font-size: 2rem; font-weight: bold; color: #1976d2;"><span id="totalPosts">0</span></p>
+                        </div>
+                        <div style="background: #f3e5f5; padding: 1.5rem; border-radius: 10px; text-align: center;">
+                            <h4>Total Comments</h4>
+                            <p style="font-size: 2rem; font-weight: bold; color: #7b1fa2;"><span id="totalComments">0</span></p>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 1.5rem; border-radius: 10px; text-align: center;">
+                            <h4>Subscribers</h4>
+                            <p style="font-size: 2rem; font-weight: bold; color: #388e3c;"><span id="totalSubscribers">0</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="newsletter" class="section">
+                <h2>Newsletter Management</h2>
+                
+                <div class="email-signup">
+                    <h3>Subscribe to Our Newsletter</h3>
+                    <p>Get the latest blog posts delivered to your inbox</p>
+                    <form class="email-form" onsubmit="subscribeEmail(event)">
+                        <input type="email" placeholder="Enter your email" required id="subscribeEmail">
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div id="subscribeStatus"></div>
+                
+                <div style="margin-top: 2rem;">
+                    <h3>Send Newsletter</h3>
+                    <form onsubmit="sendNewsletter(event)">
+                        <div class="form-group">
+                            <label for="newsletterSubject">Subject:</label>
+                            <input type="text" id="newsletterSubject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsletterContent">Content:</label>
+                            <textarea id="newsletterContent" required placeholder="Newsletter content..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Newsletter</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api'; // Replace with your backend URL if deployed
+
+        // Global arrays (will be populated from backend)
+        let blogPostsData = [];
+        let commentsData = [];
+        let subscribersData = [];
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', async function() {
+            await displayBlogPosts();
+            await updateStats();
+        });
+
+        // Navigation functions
+        function showSection(event, sectionName) {
+            event.preventDefault(); // Prevent default link behavior
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update navigation active state
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update stats when showing admin section
+            if (sectionName === 'admin') {
+                updateStats();
+            }
+        }
+
+        // AI Content Generation
+        async function generateAIContent() {
+            const prompt = document.getElementById('aiPrompt').value.trim();
+            const aiLoading = document.getElementById('aiLoading');
+            const suggestionsDiv = document.getElementById('aiSuggestions');
+
+            if (!prompt) {
+                showStatus('createStatus', 'Please enter a topic or idea.', 'error');
+                return;
+            }
+
+            suggestionsDiv.style.display = 'none'; // Hide previous suggestions
+            aiLoading.style.display = 'inline-block'; // Show loading spinner
+            showStatus('createStatus', 'Generating AI suggestions, please wait...', 'info');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/ai-generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    suggestionsDiv.style.display = 'block';
+                    const titleSuggestions = document.getElementById('titleSuggestions');
+                    const subtitleSuggestions = document.getElementById('subtitleSuggestions');
+                    const descriptionSuggestions = document.getElementById('descriptionSuggestions');
+
+                    titleSuggestions.innerHTML = '<h5>Title Suggestions:</h5>';
+                    subtitleSuggestions.innerHTML = '<h5>Subtitle Suggestions:</h5>';
+                    descriptionSuggestions.innerHTML = '<h5>Content Suggestions:</h5>';
+
+                    if (data.titles && Array.isArray(data.titles)) {
+                        data.titles.forEach(suggestion => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.textContent = suggestion;
+                            item.onclick = () => document.getElementById('postTitle').value = suggestion;
+                            titleSuggestions.appendChild(item);
+                        });
+                    } else {
+                        titleSuggestions.innerHTML += '<p>No title suggestions.</p>';
+                    }
+
+                    if (data.subtitles && Array.isArray(data.subtitles)) {
+                        data.subtitles.forEach(suggestion => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.textContent = suggestion;
+                            item.onclick = () => document.getElementById('postSubtitle').value = suggestion;
+                            subtitleSuggestions.appendChild(item);
+                        });
+                    } else {
+                        subtitleSuggestions.innerHTML += '<p>No subtitle suggestions.</p>';
+                    }
+
+                    if (data.descriptions && Array.isArray(data.descriptions)) {
+                        data.descriptions.forEach(suggestion => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.textContent = suggestion.substring(0, 100) + '...';
+                            item.onclick = () => document.getElementById('postContent').value = suggestion;
+                            descriptionSuggestions.appendChild(item);
+                        });
+                    } else {
+                        descriptionSuggestions.innerHTML += '<p>No content suggestions.</p>';
+                    }
+                    showStatus('createStatus', 'AI suggestions generated! Click on any suggestion to use it.', 'success');
+                } else {
+                    showStatus('createStatus', data.message || 'Failed to generate AI content.', 'error');
+                }
+            } catch (err) {
+                console.error('Error generating AI content:', err);
+                showStatus('createStatus', 'Error connecting to AI service. Check console for details.', 'error');
+            } finally {
+                aiLoading.style.display = 'none'; // Hide loading spinner
+            }
+        }
+
+        // Create new blog post
+        async function createPost(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('postTitle').value;
+            const subtitle = document.getElementById('postSubtitle').value;
+            const content = document.getElementById('postContent').value;
+            const category = document.getElementById('postCategory').value;
+            const author = document.getElementById('authorName').value;
+            const email = document.getElementById('authorEmail').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, subtitle, content, category, author, email })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('postForm').reset();
+                    document.getElementById('aiSuggestions').style.display = 'none';
+                    showStatus('createStatus', 'Post published successfully!', 'success');
+                    await displayBlogPosts();
+                    await updateStats();
+                    setTimeout(() => showSection(event, 'home'), 1500); // Pass event for showSection
+                } else {
+                    showStatus('createStatus', data.message || 'Failed to publish post.', 'error');
+                }
+            } catch (err) {
+                console.error('Error creating post:', err);
+                showStatus('createStatus', 'Error connecting to backend.', 'error');
+            }
+        }
+
+        // Display blog posts
+        async function displayBlogPosts() {
+            const postsContainer = document.getElementById('blogPosts');
+            postsContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Loading posts...</p>';
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch posts');
+                }
+                blogPostsData = await response.json();
+                commentsData = []; // Clear global comments to rebuild from posts
+                blogPostsData.forEach(post => {
+                    commentsData.push(...post.comments);
+                });
+
+                if (blogPostsData.length === 0) {
+                    postsContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">No blog posts yet. Create your first post!</p>';
+                    return;
+                }
+                
+                postsContainer.innerHTML = blogPostsData.map(post => `
+                    <div class="blog-card">
+                        <div class="blog-card-header">
+                            <h3>${post.title}</h3>
+                            ${post.subtitle ? `<p style="opacity: 0.9; margin-top: 0.5rem;">${post.subtitle}</p>` : ''}
+                        </div>
+                        <div class="blog-card-content">
+                            <p>${post.content.substring(0, 150)}...</p>
+                            <div class="blog-meta">
+                                <span>By ${post.author}</span>
+                                <span>${new Date(post.date).toLocaleDateString()}</span>
+                            </div>
+                            <button class="btn" onclick="viewPost('${post._id}')" style="margin-top: 1rem;">Read More</button>
+                        </div>
+                        <div class="comments-section">
+                            <h4>Comments (${post.comments.length})</h4>
+                            <div id="comments-${post._id}">
+                                ${post.comments.map(comment => `
+                                    <div class="comment">
+                                        <div class="comment-author">${comment.author}</div>
+                                        <div class="comment-date">${new Date(comment.date).toLocaleDateString()}</div>
+                                        <div>${comment.content}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <form onsubmit="addComment(event, '${post._id}')" style="margin-top: 1rem;">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Your name" required name="commentAuthor">
+                                </div>
+                                <div class="form-group">
+                                    <textarea placeholder="Write a comment..." required name="commentContent" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn">Add Comment</button>
+                            </form>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error('Error fetching blog posts:', err);
+                postsContainer.innerHTML = '<p style="text-align: center; color: #dc3545; padding: 2rem;">Error loading posts. Please try again later.</p>';
+            }
+        }
+
+        // Add comment to post
+        async function addComment(event, postId) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const author = form.commentAuthor.value;
+            const content = form.commentContent.value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts/${postId}/comments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ author, content })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    form.reset();
+                    await displayBlogPosts(); // Refresh posts to show new comment
+                    await updateStats();
+                } else {
+                    alert(data.message || 'Failed to add comment.');
+                }
+            } catch (err) {
+                console.error('Error adding comment:', err);
+                alert('Error connecting to backend.');
+            }
+        }
+
+        // View individual post (can be expanded to a dedicated post page)
+        function viewPost(postId) {
+            const post = blogPostsData.find(p => p._id === postId);
+            if (post) {
+                alert(`Viewing: ${post.title}\n\n${post.content}`);
+            }
+        }
+
+        // Email subscription
+        async function subscribeEmail(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('subscribeEmail').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/subscribe`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('subscribeEmail').value = '';
+                    showStatus('subscribeStatus', 'Successfully subscribed to newsletter!', 'success');
+                    await updateStats();
+                } else {
+                    showStatus('subscribeStatus', data.message || 'Subscription failed.', 'error');
+                }
+            } catch (err) {
+                console.error('Error subscribing email:', err);
+                showStatus('subscribeStatus', 'Error connecting to backend.', 'error');
+            }
+        }
+
+        // Send newsletter (placeholder)
+        async function sendNewsletter(event) {
+            event.preventDefault();
+            
+            const subject = document.getElementById('newsletterSubject').value;
+            const content = document.getElementById('newsletterContent').value;
+            
+            // In a real app, this would trigger an email service via backend
+            try {
+                const response = await fetch(`${API_BASE_URL}/subscribers`);
+                const allSubscribers = await response.json();
+                
+                alert(`Simulating newsletter send to ${allSubscribers.length} subscribers!\n\nSubject: ${subject}\nContent: ${content.substring(0, 50)}...`);
+                
+                event.target.reset();
+                showStatus('newsletterStatus', 'Newsletter send simulated. In a real app, this would send actual emails.', 'success');
+            } catch (err) {
+                console.error('Error fetching subscribers for newsletter simulation:', err);
+                showStatus('newsletterStatus', 'Could not simulate newsletter send. Failed to fetch subscribers.', 'error');
+            }
+        }
+
+        // Admin functions
+        async function showAllPosts() {
+            const adminContent = document.getElementById('adminContent');
+            adminContent.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Loading posts for admin...</p>';
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts`);
+                const posts = await response.json();
+                blogPostsData = posts; // Update local cache
+
+                adminContent.innerHTML = `
+                    <h3>All Blog Posts (${posts.length})</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                            <thead>
+                                <tr style="background: #f8f9fa;">
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #dee2e6;">Title</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #dee2e6;">Author</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #dee2e6;">Date</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #dee2e6;">Comments</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #dee2e6;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${posts.map(post => `
+                                    <tr>
+                                        <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">${post.title}</td>
+                                        <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">${post.author}</td>
+                                        <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">${new Date(post.date).toLocaleDateString()}</td>
+                                        <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">${post.comments.length}</td>
+                                        <td style="padding: 1rem; border-bottom: 1px solid #dee2e6;">
+                                            <button class="btn" onclick="deletePost('${post._id}')" style="background: #dc3545;">Delete</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            } catch (err) {
+                console.error('Error fetching posts for admin:', err);
+                adminContent.innerHTML = '<p style="text-align: center; color: #dc3545; padding: 2rem;">Error loading posts for admin. Try again.</p>';
+            }
+        }
+
+        async function showSubscribers() {
+            const adminContent = document.getElementById('adminContent');
+            adminContent.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Loading subscribers...</p>';
+            try {
+                const response = await fetch(`${API_BASE_URL}/subscribers`);
+                const subs = await response.json();
+                subscribersData = subs; // Update local cache
+
+                adminContent.innerHTML = `
+                    <h3>Newsletter Subscribers (${subs.length})</h3>
+                    <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-top: 1rem;">
+                        ${subs.length === 0 ? 
+                            '<p style="text-align: center; color: #666;">No subscribers yet.</p>' : 
+                            subs.map(subscriber => `
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border-bottom: 1px solid #eee;">
+                                    <span>${subscriber.email}</span>
+                                    <button class="btn" onclick="removeSubscriber('${subscriber._id}')" style="background: #dc3545; padding: 0.5rem 1rem;">Remove</button>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                `;
+            } catch (err) {
+                console.error('Error fetching subscribers:', err);
+                adminContent.innerHTML = '<p style="text-align: center; color: #dc3545; padding: 2rem;">Error loading subscribers. Try again.</p>';
+            }
+        }
+
+        async function moderateComments() {
+            const adminContent = document.getElementById('adminContent');
+            adminContent.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Loading comments for moderation...</p>';
+            
+            // Re-fetch posts to get latest comments
+            try {
+                const postsResponse = await fetch(`${API_BASE_URL}/posts`);
+                const posts = await postsResponse.json();
+                blogPostsData = posts; // Update local cache
+                
+                // Aggregate all comments from all posts
+                const allComments = [];
+                posts.forEach(post => {
+                    post.comments.forEach(comment => {
+                        allComments.push({
+                            ...comment,
+                            postId: post._id, // Add postId to comment for deletion
+                            postTitle: post.title
+                        });
+                    });
+                });
+                commentsData = allComments; // Update global comments cache
+
+                adminContent.innerHTML = `
+                    <h3>All Comments (${allComments.length})</h3>
+                    <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-top: 1rem;">
+                        ${allComments.length === 0 ? 
+                            '<p style="text-align: center; color: #666;">No comments yet.</p>' : 
+                            allComments.map(comment => `
+                                <div style="border: 1px solid #eee; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <strong>${comment.author}</strong>
+                                        <small>${new Date(comment.date).toLocaleDateString()}</small>
+                                    </div>
+                                    <p style="margin-bottom: 0.5rem;"><strong>Post:</strong> ${comment.postTitle}</p>
+                                    <p style="margin-bottom: 1rem;">${comment.content}</p>
+                                    <button class="btn" onclick="deleteComment('${comment.postId}', '${comment._id}')" style="background: #dc3545; padding: 0.5rem 1rem;">Delete</button>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                `;
+            } catch (err) {
+                console.error('Error fetching comments for moderation:', err);
+                adminContent.innerHTML = '<p style="text-align: center; color: #dc3545; padding: 2rem;">Error loading comments for moderation. Try again.</p>';
+            }
+        }
+
+        async function deletePost(postId) {
+            if (confirm('Are you sure you want to delete this post?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/posts/${postId}`, {
+                        method: 'DELETE'
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        showStatus('adminStatus', 'Post deleted successfully!', 'success');
+                        await displayBlogPosts(); // Refresh main blog posts
+                        await updateStats();
+                        showAllPosts(); // Refresh the admin view of posts
+                    } else {
+                        showStatus('adminStatus', data.message || 'Failed to delete post.', 'error');
+                    }
+                } catch (err) {
+                    console.error('Error deleting post:', err);
+                    showStatus('adminStatus', 'Error connecting to backend.', 'error');
+                }
+            }
+        }
+
+        async function removeSubscriber(subscriberId) {
+            if (confirm('Remove this subscriber?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/subscribers/${subscriberId}`, {
+                        method: 'DELETE'
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        showStatus('adminStatus', 'Subscriber removed successfully!', 'success');
+                        await updateStats();
+                        showSubscribers(); // Refresh the view
+                    } else {
+                        showStatus('adminStatus', data.message || 'Failed to remove subscriber.', 'error');
+                    }
+                } catch (err) {
+                    console.error('Error removing subscriber:', err);
+                    showStatus('adminStatus', 'Error connecting to backend.', 'error');
+                }
+            }
+        }
+
+        async function deleteComment(postId, commentId) {
+            if (confirm('Delete this comment?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/posts/${postId}/comments/${commentId}`, {
+                        method: 'DELETE'
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        showStatus('adminStatus', 'Comment deleted successfully!', 'success');
+                        await displayBlogPosts(); // Refresh posts to update comment counts
+                        await updateStats();
+                        moderateComments(); // Refresh the comments moderation view
+                    } else {
+                        showStatus('adminStatus', data.message || 'Failed to delete comment.', 'error');
+                    }
+                } catch (err) {
+                    console.error('Error deleting comment:', err);
+                    showStatus('adminStatus', 'Error connecting to backend.', 'error');
+                }
+            }
+        }
+
+        // Update statistics
+        async function updateStats() {
+            try {
+                // Fetch latest posts for counts
+                const postsResponse = await fetch(`${API_BASE_URL}/posts`);
+                const posts = await postsResponse.json();
+                blogPostsData = posts; // Update local cache
+
+                // Aggregate comments from all posts
+                let totalCommentsCount = 0;
+                posts.forEach(p => {
+                    totalCommentsCount += p.comments.length;
+                });
+                commentsData = allComments; // Ensure global commentsData is up-to-date
+
+                // Fetch latest subscribers
+                const subsResponse = await fetch(`${API_BASE_URL}/subscribers`);
+                const subs = await subsResponse.json();
+                subscribersData = subs; // Update local cache
+
+                document.getElementById('totalPosts').textContent = blogPostsData.length;
+                document.getElementById('totalComments').textContent = totalCommentsCount;
+                document.getElementById('totalSubscribers').textContent = subscribersData.length;
+            } catch (err) {
+                console.error('Error updating stats:', err);
+                document.getElementById('totalPosts').textContent = 'N/A';
+                document.getElementById('totalComments').textContent = 'N/A';
+                document.getElementById('totalSubscribers').textContent = 'N/A';
+            }
+        }
+
+        // Show status messages
+        function showStatus(elementId, message, type) {
+            const statusDiv = document.getElementById(elementId);
+            statusDiv.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+            
+            setTimeout(() => {
+                statusDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        // The loadSampleData function is no longer needed as data will come from the backend.
+        // You can remove it or keep it commented out.
+
+        // Placeholder for future enhancement functions (remain as is, or remove if not planning to implement)
+        function viewPost(postId) {
+            const post = blogPostsData.find(p => p._id === postId); // Use _id from MongoDB
+            if (post) {
+                // In a real application, you would navigate to a dedicated post page
+                // For now, an alert will suffice as a placeholder.
+                alert(`Full Post: ${post.title}\n\n${post.content}\n\nAuthor: ${post.author}\nDate: ${new Date(post.date).toLocaleDateString()}\nCategory: ${post.category}`);
+            } else {
+                alert('Post not found.');
+            }
+            trackEvent('Post Interaction', 'View Post', postId);
+        }
+        
+        function generateSEOKeywords(content) {
+            // This logic can be moved to the backend if you want real AI generation
+            const keywords = content.toLowerCase().match(/\b\w{4,}\b/g) || [];
+            return [...new Set(keywords)].slice(0, 10);
+        }
+
+        function generateMetaDescription(content) {
+            // This logic can be moved to the backend if you want real AI generation
+            const sentences = content.split('. ');
+            return sentences[0] + (sentences[1] ? '. ' + sentences[1] : '') + '...';
+        }
+
+        function exportBlogData() {
+            // This will now need to fetch data from the backend to export comprehensive data
+            alert('Export functionality would fetch data from the backend and generate a file.');
+            trackEvent('Admin Action', 'Export Data');
+        }
+
+        function searchPosts(query) {
+            // This would ideally make an API call to the backend for search functionality
+            alert('Search functionality would query the backend for posts matching the query.');
+            trackEvent('Search', 'Search Posts', query);
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('mobile-active');
+            trackEvent('UI', 'Toggle Mobile Menu');
+        }
+
+        function initRichTextEditor() {
+            console.log('Rich text editor would be initialized here (e.g., TinyMCE, Quill).');
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                console.log('Simulating image upload:', file.name);
+                // In a real app, this would upload to a server-side storage (e.g., S3, Cloudinary)
+                alert('Image selected for upload. In a real app, this would upload to a server.');
+                trackEvent('Post Creation', 'Image Upload');
+            }
+        }
+
+        function sharePost(postId, platform) {
+            const post = blogPostsData.find(p => p._id === postId); // Use _id from MongoDB
+            if (post) {
+                const url = encodeURIComponent(window.location.href);
+                const title = encodeURIComponent(post.title);
+                let shareUrl = '';
+                switch(platform) {
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+                        break;
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                        break;
+                    case 'linkedin':
+                        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                        break;
+                    default:
+                        alert('Unknown sharing platform.');
+                        return;
+                }
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                    trackEvent('Social Sharing', 'Share Post', platform);
+                }
+            } else {
+                alert('Post not found for sharing.');
+            }
+        }
+
+        function trackEvent(category, action, label) {
+            console.log('Analytics event:', { category, action, label });
+            // In a real application, you would send this to Google Analytics, Mixpanel, etc.
+        }
+
+        function autoSave() {
+            const formData = {
+                title: document.getElementById('postTitle').value,
+                subtitle: document.getElementById('postSubtitle').value,
+                content: document.getElementById('postContent').value,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('blog-draft', JSON.stringify(formData));
+            // console.log('Draft auto-saved:', formData);
+        }
+
+        // setInterval(autoSave, 30000); // Auto-save every 30 seconds (consider implementing)
+
+    </script>
+</body>
+</html>
