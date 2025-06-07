@@ -1,5 +1,5 @@
-# AI Blog Hub
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/hyper-27/blogging-web)
+# My Blogging Web
+[![Don't Ask](https://devin.ai/assets/askdeepwiki.png)](https://blogging-web-xlq6.onrender.com)
 
 AI Blog Hub is a full-stack web application designed for creating, managing, and publishing blog posts with the assistance of AI-powered content generation. It features a user-friendly single-page interface for interacting with the backend API, built with Node.js, Express, and MongoDB.
 
