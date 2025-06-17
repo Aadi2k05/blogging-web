@@ -588,10 +588,14 @@
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
                             item.textContent = suggestion;
-                            item.onclick = () => {
-                                document.getElementById('postTitle').value = suggestion;
-                                document.getElementById('aiSuggestions').style.display = 'none';
+                           item.onclick = function() {
+                             document.getElementById('postTitle').value = suggestion;
+                             this.remove(); // Only remove this suggestion item
+                              // Optionally, hide the whole suggestion box if all items are gone:
+                       if (titleSuggestions.querySelectorAll('.suggestion-item').length === 0) {
+                               document.getElementById('aiSuggestions').style.display = 'none';
                             }
+                           }
                             titleSuggestions.appendChild(item);
                         });
                     } else {
@@ -603,9 +607,13 @@
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
                             item.textContent = suggestion;
-                            item.onclick = () => {
-                                document.getElementById('postSubtitle').value = suggestion;
-                                document.getElementById('aiSuggestions').style.display = 'none';}
+                           item.onclick = function() {
+                            document.getElementById('postSubtitle').value = suggestion;
+                                   this.remove();
+                        if (subtitleSuggestions.querySelectorAll('.suggestion-item').length === 0) {
+                      document.getElementById('aiSuggestions').style.display = 'none';
+                            }
+                                      }
                                 
                             subtitleSuggestions.appendChild(item);
                         });
@@ -618,10 +626,13 @@
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
                             item.textContent = suggestion.substring(0, 100) + '...';
-                            item.onclick = () => {
-                                document.getElementById('postContent').value = suggestion;
-                                document.getElementById('aiSuggestions').style.display = 'none';
-                            }
+                            item.onclick = function() {
+                           document.getElementById('postContent').value = suggestion;
+                                  this.remove();
+                                if (descriptionSuggestions.querySelectorAll('.suggestion-item').length === 0) {
+                                                      document.getElementById('aiSuggestions').style.display = 'none';
+                                        }
+                             }
                             descriptionSuggestions.appendChild(item);
                         });
                     } else {
