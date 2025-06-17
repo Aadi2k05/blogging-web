@@ -628,10 +628,8 @@
                             item.textContent = suggestion.substring(0, 100) + '...';
                             item.onclick = function() {
                            document.getElementById('postContent').value = suggestion;
-                                  this.remove();
-                                if (descriptionSuggestions.querySelectorAll('.suggestion-item').length === 0) {
-                                                      document.getElementById('aiSuggestions').style.display = 'none';
-                                        }
+                                 document.getElementById('aiSuggestions').style.display = 'none';
+                                        
                              }
                             descriptionSuggestions.appendChild(item);
                         });
