@@ -588,7 +588,10 @@
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
                             item.textContent = suggestion;
-                            item.onclick = () => document.getElementById('postTitle').value = suggestion;
+                            item.onclick = () => {
+                                document.getElementById('postTitle').value = suggestion;
+                                document.getElementById('aiSuggestions').style.display = 'none';
+                            }
                             titleSuggestions.appendChild(item);
                         });
                     } else {
@@ -600,7 +603,10 @@
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
                             item.textContent = suggestion;
-                            item.onclick = () => document.getElementById('postSubtitle').value = suggestion;
+                            item.onclick = () => {
+                                document.getElementById('postSubtitle').value = suggestion;
+                                document.getElementById('aiSuggestions').style.display = 'none';}
+                                
                             subtitleSuggestions.appendChild(item);
                         });
                     } else {
@@ -612,7 +618,10 @@
                             const item = document.createElement('div');
                             item.className = 'suggestion-item';
                             item.textContent = suggestion.substring(0, 100) + '...';
-                            item.onclick = () => document.getElementById('postContent').value = suggestion;
+                            item.onclick = () => {
+                                document.getElementById('postContent').value = suggestion;
+                                document.getElementById('aiSuggestions').style.display = 'none';
+                            }
                             descriptionSuggestions.appendChild(item);
                         });
                     } else {
