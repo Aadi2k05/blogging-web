@@ -4,7 +4,7 @@ AI Blog Hub is a full-stack web application designed for creating, managing, and
 
 ## Features
 
-*   **Blog Post Management**: Create, read, and delete blog posts.
+*   **Blog Post Management**: Create, read, and delete blog post.
 *   **AI Content Assistance**: Leverage Google Gemini to generate suggestions for blog post titles, subtitles, and content.
 *   **Commenting System**: Allow users to comment on blog posts.
 *   **Newsletter Subscription**: Enable users to subscribe to a newsletter.
